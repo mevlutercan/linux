@@ -1,0 +1,43 @@
+# Author : mevlut ercan
+#!/bin/bash
+clear -x
+dbmidterm=~/Scripts/midterm.db
+echo "************************************"
+echo "welcome to mevlut's student database"
+echo "************************************"
+while :
+        do
+                echo "*******************************************************************************************************************";
+                echo "Please,choose what you want to do,1 for add new student,2 for sort database,3 for display the database,4 for exit ";
+                echo "******************************************************************************************************************";
+                echo "enter choice"
+                read choice
+                case $choice in
+                "1") echo "how many student will you add?"
+                read number;
+        while [ 0 -ne $number ];
+        do
+                let "number-=1"
+                echo -n $number
+                echo "Please,enter student datas";
+                echo "name:"; read name;
+                echo "city:"; read city;
+                echo "age:"; read age;
+                echo "gpa:"; read gpa;
+                echo "$name:$city:$age:$gpa" >> $dbmidterm
+        done;;
+                "2") echo "********************************************"
+                echo "1 for name,2 for city, 3 for age ,4 for gpa"
+                echo "*******************************************"
+                echo "Sort by enter field number"
+                read input;
+                sort -t: -k $input $dbmidterm > midterm.tmp
+                cp midterm.tmp $dbmidterm;
+                rm midterm.tmp;;
+                "3") column -s: -t $dbmidterm;;
+                "4") echo "Thank you for visit";
+                exit;;
+
+                *) echo "you entered invalid option";;
+esac
+done
